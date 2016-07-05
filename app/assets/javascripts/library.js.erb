@@ -1,0 +1,30 @@
+$(document).ready(function(){
+
+	function quoteTemplate(src){
+		this.imageLink = src
+	}
+
+	var quoteTemplate1 = new quoteTemplate('images/Trump1.png')
+
+	$('#submitButton').click(function(){
+		var input = $('#fname').val()
+		console.log('This input is ' + input)
+	})
+
+	var canvas = document.getElementById('myCanvas');
+    var context = canvas.getContext('2d');
+    var imageObj = new Image();
+    var quotation = new Image();
+
+    imageObj.onload = function() {
+      context.drawImage(imageObj, 69, 50);
+      context.drawImage(quotation, 0, 120);
+      context.font = "80px serif";
+      context.fillText("China", 30, 80);
+    };
+
+    imageObj.src =  '/assets/Trump1.jpg'
+    quotation.src = '/assets/quotationmark.png'
+    console.log(imageObj.src)
+
+})
