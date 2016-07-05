@@ -1,30 +1,74 @@
 $(document).ready(function(){
 
 	function quoteTemplate(src){
-		this.imageLink = src
+		this.imageLink = src,
+
+		this.setText = function(input){
+			var x = "A lot of people ask me about " + input +". And let me tell you folks. It's bad."
+
+			this.text = x
+		}
+
 	}
 
 	var quoteTemplate1 = new quoteTemplate('images/Trump1.png')
 
 	$('#submitButton').click(function(){
 		var input = $('#fname').val()
-		console.log('This input is ' + input)
+		createImage();
 	})
 
 	var canvas = document.getElementById('myCanvas');
+
+
+
     var context = canvas.getContext('2d');
+    // var textContext = textCanvas.getContext('2d');
+
+ 	var newCanvas = 
+	    $('<canvas/>',{'class':'radHuh'})
+	    .width(100)
+	    .height(100)
+	    .css("background-color", "yellow");
+
     var imageObj = new Image();
     var quotation = new Image();
 
-    imageObj.onload = function() {
+
+    function createImage() {
+      var text = $('#fname').val()
+      quoteTemplate1.setText(text)
+//Probably have to draw a second canvas on top of the first to get text width to work
       context.drawImage(imageObj, 69, 50);
-      context.drawImage(quotation, 0, 120);
-      context.font = "80px serif";
-      context.fillText("China", 30, 80);
+      context.drawImage(quotation, 78, 65);
+      // context.font = "12px serif";
+      // context.fillText(quoteTemplate1.text, 30, 80);
+
+      var textCanvas = document.createElement('canvas')
+		
+		textCanvas.id = "textCanvas"
+		textCanvas.width = 200
+		textCanvas.height = 500
+		// textCanvas.style.zIndex   = -8;
+		textCanvas.style.left = '30px'
+		textCanvas.style.right = '80px'
+		textCanvas.style.position = "absolute";
+		textCanvas.style.border   = "1px solid";
+		document.body.appendChild(textCanvas);
+
+		$('#textCanvas').css('background-color', 'yellow')
+
+		var getTextCanvas = document.getElementById('textCanvas');
+		var textContext = textCanvas.getContext('2d')
+		textContext.clearRect(0, 0, textContext.canvas.width, textContext.canvas.height);
+
+
+      	textContext.font = "12px serif";
+      	textContext.fillText(quoteTemplate1.text, 30, 80);
+
     };
 
     imageObj.src =  '/assets/Trump1.jpg'
     quotation.src = '/assets/quotationmark.png'
-    console.log(imageObj.src)
 
 })
