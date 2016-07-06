@@ -1,17 +1,130 @@
 $(document).ready(function(){
 
-	function quoteTemplate(src){
-		this.imageLink = src,
+	function quoteTemplate(){
+		this.imageLink = "/assets/Trump1.jpg"
+		this.quotation = 1
+      	this.font = "38px Sans Serif";
 
 		this.setText = function(input){
-			var x = "A lot of people ask me about " + input +". And let me tell you folks. It's bad. It's so bad. Nobody can believe how bad it is."
-
-			this.text = x
+			this.text = "A lot of people ask me about " + input +". And let me tell you folks. It's bad. It's so bad. Nobody can believe how bad it is."
 		}
 
+		this.color = "#ffffff"
+
+		this.wrapText = function(context, text) {
+	        var words = text.split(' ');
+	        var line = '';
+	        var x = 90
+	        var y = 68
+	        var maxWidth = 320
+	        var lineHeight = 40
+
+	        for(var n = 0; n < words.length; n++) {
+	          var testLine = line + words[n] + ' ';
+	          var metrics = context.measureText(testLine);
+	          var testWidth = metrics.width;
+	          if (testWidth > maxWidth && n > 0) {
+	            context.fillText(line, x, y);
+	            line = words[n] + ' ';
+	            y += lineHeight;
+	          }
+	          else {
+	            line = testLine;
+	          }
+	        }
+	        context.fillText(line, x, y);
+
+	        var sigPosition = y + (2 * lineHeight)
+	        context.fillText("Donald Trump", x, sigPosition)
+	  	}	
 	}
 
-	var quoteTemplate1 = new quoteTemplate('images/Trump1.png')
+	function quoteTemplate2(){
+		this.imageLink = "/assets/Trump3.jpeg",
+		this.quotation = 1
+      	this.font = "38px Sans Serif";
+
+		this.setText = function(input){
+			this.text = "People ask me what I'm going to do about " + input +". And I tell them I'm gonna win. Right now Obama is losing on " + input +". That's all he does is lose. Because he's a loser."
+		}
+
+		this.color = "#ffffff"
+
+		this.wrapText = function(context, text) {
+	        var words = text.split(' ');
+	        var line = '';
+	        var x = 90
+	        var y = 68
+	        var maxWidth = 650
+	        var lineHeight = 40
+
+	        for(var n = 0; n < words.length; n++) {
+	          var testLine = line + words[n] + ' ';
+	          var metrics = context.measureText(testLine);
+	          var testWidth = metrics.width;
+	          if (testWidth > maxWidth && n > 0) {
+	            context.fillText(line, x, y);
+	            line = words[n] + ' ';
+	            y += lineHeight;
+	            if (y >= 188){
+	            	maxWidth = 320
+	            }
+	          }
+	          else {
+	            line = testLine;
+	          }
+	        }
+
+	        context.fillText(line, x, y);
+
+	        context.shadowColor = "#808080"
+	        context.shadowOffsetX = 2;
+	        context.shadowOffsetX = 2;
+	        context.shadowBlur = 10
+
+	        var sigPosition = y + (2 * lineHeight)
+	        context.fillText("Donald Trump", x, sigPosition)
+
+	        context.shadowColor = "#000000"
+	  	}	
+	}
+
+	function quoteTemplate3(){
+		this.imageLink = "/assets/Trump7.jpg"
+		this.quotation = 0
+		this.font = '31px Frutiger'
+		this.color = "#292f33"
+
+		this.setText = function(input){
+			this.text = "Figures Crooked Hilary deleted all of her emails about " + input +"."
+		}
+
+		this.wrapText = function(context, text) {
+	        var words = text.split(' ');
+	        var line = '';
+	        var x = 40
+	        var y = 148
+	        var maxWidth = 760
+	        var lineHeight = 40
+
+	        for(var n = 0; n < words.length; n++) {
+	          var testLine = line + words[n] + ' ';
+	          var metrics = context.measureText(testLine);
+	          var testWidth = metrics.width;
+	          if (testWidth > maxWidth && n > 0) {
+	            context.fillText(line, x, y);
+	            line = words[n] + ' ';
+	            y += lineHeight;
+	          }
+	          else {
+	            line = testLine;
+	          }
+	        }
+	        context.fillText(line, x, y);
+	  	}	
+	}
+	// var quoteTemplate1 = new quoteTemplate('Trump1.jpg')
+	var quoteTemplate1 = new quoteTemplate3()
 
 	$('#submitButton').click(function(){
 		var input = $('#fname').val()
@@ -20,73 +133,50 @@ $(document).ready(function(){
 
 	var mainCanvas = document.getElementById('myCanvas');
 
-   var context = mainCanvas.getContext('2d');
+    var context = mainCanvas.getContext('2d');
     // var textContext = textCanvas.getContext('2d');
 
     var imageObj = new Image();
     var quotation = new Image();
+    quotation.src = '/assets/quotationmark.png'
+    imageObj.src = quoteTemplate1.imageLink
 
-   function wrapText(context, text, x, y, maxWidth, lineHeight) {
-        var words = text.split(' ');
-        var line = '';
-
-        for(var n = 0; n < words.length; n++) {
-          var testLine = line + words[n] + ' ';
-          var metrics = context.measureText(testLine);
-          var testWidth = metrics.width;
-          if (testWidth > maxWidth && n > 0) {
-            context.fillText(line, x, y);
-            line = words[n] + ' ';
-            y += lineHeight;
-          }
-          else {
-            line = testLine;
-          }
-        }
-        context.fillText(line, x, y);
-
-        var sigPosition = y + (2 * lineHeight)
-        context.fillText("Donald Trump", x, sigPosition)
-   }
 
     function createImage() {
       var text = $('#fname').val()
       quoteTemplate1.setText(text)
       context.drawImage(imageObj, 0, 0);
-      context.drawImage(quotation, 19, 15); //quotationmark is 60 x 60
-      context.font = "38px Sans Serif";
-      context.fillStyle = '#ffffff'
-      // context.fillText(quoteTemplate1.text, 30, 80);
+      
+      if (quoteTemplate1.quotation){context.drawImage(quotation, 19, 15)}; //quotationmark is 60 x 60
+      context.font =  quoteTemplate1.font;
+      context.fillStyle = quoteTemplate1.color
 
-      //wrapText(context, text, x, y, maxWidth, lineHeight)
-      wrapText(context, quoteTemplate1.text, 90, 68, 320, 40)
-  //     var textCanvas = document.createElement('canvas')
-		
-		// textCanvas.id = "textCanvas"
-		// textCanvas.width = 200
-		// textCanvas.height = 500
-		// // textCanvas.style.zIndex   = -8;
-		// textCanvas.style.left = '30px'
-		// textCanvas.style.right = '80px'
-		// textCanvas.style.position = "absolute";
-		// textCanvas.style.border   = "1px solid";
-		// document.body.appendChild(textCanvas);
+      quoteTemplate1.wrapText(context, quoteTemplate1.text)
 
-		// $('#textCanvas').css('background-color', 'yellow')
-
-		// var getTextCanvas = document.getElementById('textCanvas');
-		// var textContext = textCanvas.getContext('2d')
-		// textContext.clearRect(0, 0, textContext.canvas.width, textContext.canvas.height);
-
-
-      // textContext.font = "12px serif";
-      // textContext.fillText(quoteTemplate1.text, 30, 80);
 
     };
 
-    //This is hardcoded for now. Will be built into objects later
-    imageObj.src =  '/assets/Trump1.jpg'
-    quotation.src = '/assets/quotationmark.png'
-
-
 })
+
+   // function wrapText(context, text, x, y, maxWidth, lineHeight) {
+   //      var words = text.split(' ');
+   //      var line = '';
+
+   //      for(var n = 0; n < words.length; n++) {
+   //        var testLine = line + words[n] + ' ';
+   //        var metrics = context.measureText(testLine);
+   //        var testWidth = metrics.width;
+   //        if (testWidth > maxWidth && n > 0) {
+   //          context.fillText(line, x, y);
+   //          line = words[n] + ' ';
+   //          y += lineHeight;
+   //        }
+   //        else {
+   //          line = testLine;
+   //        }
+   //      }
+   //      context.fillText(line, x, y);
+
+   //      var sigPosition = y + (2 * lineHeight)
+   //      context.fillText("Donald Trump", x, sigPosition)
+   // }
