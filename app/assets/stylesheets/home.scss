@@ -2,6 +2,27 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+/*@font-face {
+	font-family: "Arimo";
+    src: url(https://fonts.googleapis.com/css?family=Arimo)
+}*/
+
 body {
-	background-color: green;
-}
+/*	background-color: green;
+*/}
+
+/*#mainCanvas {
+	margin: 0 auto;
+	border: solid 1px black;
+}*/
+
+canvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 800px;
+/*    border: solid 1px black;
+*/}

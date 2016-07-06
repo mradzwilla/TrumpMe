@@ -4,7 +4,7 @@ $(document).ready(function(){
 		this.imageLink = src,
 
 		this.setText = function(input){
-			var x = "A lot of people ask me about " + input +". And let me tell you folks. It's bad."
+			var x = "A lot of people ask me about " + input +". And let me tell you folks. It's bad. It's so bad. Nobody can believe how bad it is."
 
 			this.text = x
 		}
@@ -18,57 +18,75 @@ $(document).ready(function(){
 		createImage();
 	})
 
-	var canvas = document.getElementById('myCanvas');
+	var mainCanvas = document.getElementById('myCanvas');
 
-
-
-    var context = canvas.getContext('2d');
+   var context = mainCanvas.getContext('2d');
     // var textContext = textCanvas.getContext('2d');
-
- 	var newCanvas = 
-	    $('<canvas/>',{'class':'radHuh'})
-	    .width(100)
-	    .height(100)
-	    .css("background-color", "yellow");
 
     var imageObj = new Image();
     var quotation = new Image();
 
+   function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        var words = text.split(' ');
+        var line = '';
+
+        for(var n = 0; n < words.length; n++) {
+          var testLine = line + words[n] + ' ';
+          var metrics = context.measureText(testLine);
+          var testWidth = metrics.width;
+          if (testWidth > maxWidth && n > 0) {
+            context.fillText(line, x, y);
+            line = words[n] + ' ';
+            y += lineHeight;
+          }
+          else {
+            line = testLine;
+          }
+        }
+        context.fillText(line, x, y);
+
+        var sigPosition = y + (2 * lineHeight)
+        context.fillText("Donald Trump", x, sigPosition)
+   }
 
     function createImage() {
       var text = $('#fname').val()
       quoteTemplate1.setText(text)
-//Probably have to draw a second canvas on top of the first to get text width to work
-      context.drawImage(imageObj, 69, 50);
-      context.drawImage(quotation, 78, 65);
-      // context.font = "12px serif";
+      context.drawImage(imageObj, 0, 0);
+      context.drawImage(quotation, 19, 15); //quotationmark is 60 x 60
+      context.font = "38px Sans Serif";
+      context.fillStyle = '#ffffff'
       // context.fillText(quoteTemplate1.text, 30, 80);
 
-      var textCanvas = document.createElement('canvas')
+      //wrapText(context, text, x, y, maxWidth, lineHeight)
+      wrapText(context, quoteTemplate1.text, 90, 68, 320, 40)
+  //     var textCanvas = document.createElement('canvas')
 		
-		textCanvas.id = "textCanvas"
-		textCanvas.width = 200
-		textCanvas.height = 500
-		// textCanvas.style.zIndex   = -8;
-		textCanvas.style.left = '30px'
-		textCanvas.style.right = '80px'
-		textCanvas.style.position = "absolute";
-		textCanvas.style.border   = "1px solid";
-		document.body.appendChild(textCanvas);
+		// textCanvas.id = "textCanvas"
+		// textCanvas.width = 200
+		// textCanvas.height = 500
+		// // textCanvas.style.zIndex   = -8;
+		// textCanvas.style.left = '30px'
+		// textCanvas.style.right = '80px'
+		// textCanvas.style.position = "absolute";
+		// textCanvas.style.border   = "1px solid";
+		// document.body.appendChild(textCanvas);
 
-		$('#textCanvas').css('background-color', 'yellow')
+		// $('#textCanvas').css('background-color', 'yellow')
 
-		var getTextCanvas = document.getElementById('textCanvas');
-		var textContext = textCanvas.getContext('2d')
-		textContext.clearRect(0, 0, textContext.canvas.width, textContext.canvas.height);
+		// var getTextCanvas = document.getElementById('textCanvas');
+		// var textContext = textCanvas.getContext('2d')
+		// textContext.clearRect(0, 0, textContext.canvas.width, textContext.canvas.height);
 
 
-      	textContext.font = "12px serif";
-      	textContext.fillText(quoteTemplate1.text, 30, 80);
+      // textContext.font = "12px serif";
+      // textContext.fillText(quoteTemplate1.text, 30, 80);
 
     };
 
+    //This is hardcoded for now. Will be built into objects later
     imageObj.src =  '/assets/Trump1.jpg'
     quotation.src = '/assets/quotationmark.png'
+
 
 })
