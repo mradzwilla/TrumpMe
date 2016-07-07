@@ -1,0 +1,33 @@
+var myCanvasComponent = React.createClass({
+
+	componentWillMount: function(){
+	},
+
+	componentDidMount: function(){
+
+	var draw = function(){
+
+		ctx.drawImage(objectImg, 100, 100);
+	}
+
+ 	var can = this.refs.canvas;
+    var ctx = can.getContext('2d');
+
+	var objectImg = new Image();
+	var imgPath = "<%= image_path('Trump1.jpg') %>";
+	objectImg.src = imgPath
+	
+	objectImg.onload = function(){
+		draw();
+	}
+
+	},
+
+    render: function() {
+        return (
+            <canvas ref='canvas' width={867} height={600}/>
+        );
+    }
+})
+
+// ReactDOM.render(<Image/>, document.getElementById('container'));

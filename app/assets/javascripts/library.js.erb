@@ -1,6 +1,12 @@
 $(document).ready(function(){
 
-	function quoteTemplate(){
+	var mainCanvas = document.getElementById('myCanvas');
+    var context = mainCanvas.getContext('2d');
+    var quotation = new Image();
+    quotation.src = '/assets/quotationmark.png'
+
+
+	function quoteTemplate1(){
 		this.imageLink = "/assets/Trump1.jpg"
 		this.quotation = 1
       	this.font = "38px Sans Serif";
@@ -123,60 +129,28 @@ $(document).ready(function(){
 	        context.fillText(line, x, y);
 	  	}	
 	}
-	// var quoteTemplate1 = new quoteTemplate('Trump1.jpg')
-	var quoteTemplate1 = new quoteTemplate3()
 
-	$('#submitButton').click(function(){
-		var input = $('#fname').val()
-		createImage();
-	})
-
-	var mainCanvas = document.getElementById('myCanvas');
-
-    var context = mainCanvas.getContext('2d');
-    // var textContext = textCanvas.getContext('2d');
+    var quoteTemplate = new quoteTemplate2()
 
     var imageObj = new Image();
-    var quotation = new Image();
-    quotation.src = '/assets/quotationmark.png'
-    imageObj.src = quoteTemplate1.imageLink
-
+    imageObj.src = quoteTemplate.imageLink
 
     function createImage() {
       var text = $('#fname').val()
-      quoteTemplate1.setText(text)
+
       context.drawImage(imageObj, 0, 0);
       
-      if (quoteTemplate1.quotation){context.drawImage(quotation, 19, 15)}; //quotationmark is 60 x 60
-      context.font =  quoteTemplate1.font;
-      context.fillStyle = quoteTemplate1.color
+      if (quoteTemplate.quotation){context.drawImage(quotation, 19, 15)}; //quotationmark is 60 x 60
 
-      quoteTemplate1.wrapText(context, quoteTemplate1.text)
+      context.font =  quoteTemplate.font;
+      context.fillStyle = quoteTemplate.color
 
+      quoteTemplate.setText(text)
+      quoteTemplate.wrapText(context, quoteTemplate.text)
 
     };
 
+	$('#submitButton').click(function(){
+		createImage();
+	})
 })
-
-   // function wrapText(context, text, x, y, maxWidth, lineHeight) {
-   //      var words = text.split(' ');
-   //      var line = '';
-
-   //      for(var n = 0; n < words.length; n++) {
-   //        var testLine = line + words[n] + ' ';
-   //        var metrics = context.measureText(testLine);
-   //        var testWidth = metrics.width;
-   //        if (testWidth > maxWidth && n > 0) {
-   //          context.fillText(line, x, y);
-   //          line = words[n] + ' ';
-   //          y += lineHeight;
-   //        }
-   //        else {
-   //          line = testLine;
-   //        }
-   //      }
-   //      context.fillText(line, x, y);
-
-   //      var sigPosition = y + (2 * lineHeight)
-   //      context.fillText("Donald Trump", x, sigPosition)
-   // }
