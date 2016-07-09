@@ -1,0 +1,18 @@
+var TextForm = React.createClass({
+	getInitialState: function(){
+		return {textState: ''}
+	},
+
+	handleChange: function(event){
+		this.setState({textState: event.target.value})
+	},
+
+	render: function(){
+		return (
+		<div>
+		<input type="text" value={this.state.value} onChange={this.handleChange}/>
+		<ImageSelector textInput={this.state.textState}/>
+		</div>
+		)
+	}
+})

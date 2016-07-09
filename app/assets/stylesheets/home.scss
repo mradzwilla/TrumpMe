@@ -24,8 +24,11 @@ canvas {
     margin-right: auto;
     display: block;
     width: 800px;
-/*    border: solid 1px black;
-*/}
+
+    img{
+    	z-index: -2;
+    }
+}
 
 .thumbnail {
 

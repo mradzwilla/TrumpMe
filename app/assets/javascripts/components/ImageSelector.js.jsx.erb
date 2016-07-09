@@ -6,12 +6,36 @@ var ImageSelector = React.createClass({
 		}
 	},
 
-	_draw: function(){
+	_draw: function(context, text){
 		var draw = function(){
-			ctx.drawImage(objectImg, 100, 100);
+			context.drawImage(objectImg, 100, 100);
 		}
-	 	var can = this.refs.canvas;
-	    var ctx = can.getContext('2d');
+
+		var wrapText =  function(context, text) {
+		    var words = text.split(' ');
+		    var line = '';
+		    var x = 40
+		    var y = 148
+		    var maxWidth = 760
+		    var lineHeight = 40
+
+		    for(var n = 0; n < words.length; n++) {
+		      var testLine = line + words[n] + ' ';
+		      var metrics = context.measureText(testLine);
+		      var testWidth = metrics.width;
+		      if (testWidth > maxWidth && n > 0) {
+		        context.fillText(line, x, y);
+		        line = words[n] + ' ';
+		        y += lineHeight;
+		      }
+		      else {
+		        line = testLine;
+		      }
+		    }
+		    context.fillText(line, x, y);
+			}	
+	 	// var can = this.refs.canvas;
+	  //   var ctx = can.getContext('2d');
 
 		var objectImg = new Image();
 		var imgPath = this.state.imgState;
@@ -20,15 +44,51 @@ var ImageSelector = React.createClass({
 
 		objectImg.onload = function(){
 			draw();
-			console.log('draw shti')
+			wrapText(context, text)
 		}
 	},
 
+	// wrapText: function(context, text) {
+ //    var words = text.split(' ');
+ //    var line = '';
+ //    var x = 40
+ //    var y = 148
+ //    var maxWidth = 760
+ //    var lineHeight = 40
+
+ //    for(var n = 0; n < words.length; n++) {
+ //      var testLine = line + words[n] + ' ';
+ //      var metrics = context.measureText(testLine);
+ //      var testWidth = metrics.width;
+ //      if (testWidth > maxWidth && n > 0) {
+ //        context.fillText(line, x, y);
+ //        line = words[n] + ' ';
+ //        y += lineHeight;
+ //      }
+ //      else {
+ //        line = testLine;
+ //      }
+ //    }
+ //    context.fillText(line, x, y);
+	// },	
+
 	componentDidUpdate: function(){
-		this._draw()
+
+	var can = this.refs.canvas;
+	var context = can.getContext('2d');
+	var text = this.props.textInput
+
+	this._draw(context, text);
+	// this.wrapText(context, text)
+
 	},
 	componentDidMount: function(){
-		this._draw()
+
+	var can = this.refs.canvas;
+	var context = can.getContext('2d');
+
+	this._draw(context);	
+	logStuff();
 	},
 
 	_changePicState: function(imageLink){
