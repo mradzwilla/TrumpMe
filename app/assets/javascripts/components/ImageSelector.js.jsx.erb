@@ -1,0 +1,63 @@
+var ImageSelector = React.createClass({
+
+	getInitialState: function(){
+		return{
+			imgState:  "<%= image_path('Trump1.jpg') %>"
+		}
+	},
+
+	componentDidUpdate: function(){
+		console.log("Image selector state " + this.state.imgState)
+		this.render
+	},
+
+	_changePicState: function(thumbnail){
+		var newImage = thumbnail.props.imageLink
+		console.log('newImage '+newImage)
+		setTimeout(this.setState({imgState: newImage}, console.log("setstate callback "+this.state.imgState)))
+	},
+
+	_getThumbnails: function(){
+		const thumbnailList = [
+		{id: 1, imageLink: "<%= image_path('Trump1.jpg') %>"},
+		{id: 2, imageLink: "<%= image_path('Trump3.jpg') %>"},
+		{id: 3, imageLink: "<%= image_path('Trump7.jpg') %>"},
+		]
+
+		return thumbnailList.map((e) => {
+			return (
+				<ImageThumbnail key={e.id} imageLink={e.imageLink} propFunc={this._changePicState}/>
+				)
+		});
+	},
+
+	render: function() {
+	const thumbnails = this._getThumbnails()
+
+	return (
+		<div>
+		{thumbnails}
+		<MyCanvasComponent imageLink={this.state.imgState}/>
+		</div>
+
+	)
+	}
+
+});
+
+var ImageThumbnail = React.createClass({
+
+	// getInitialState: function(){
+	// 	isSelected: false
+	// },
+
+	_runPropFunc: function(){
+		this.props.propFunc(this)
+	},
+
+	render: function(){
+		return (
+			<img key={this.props.id} src={this.props.imageLink} className="thumbnail" onClick={this._runPropFunc} />
+			)
+	}
+})
