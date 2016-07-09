@@ -1,0 +1,98 @@
+var QuoteTemplate2 = React.createClass({
+	_draw: function(){
+
+		var draw = function(){
+
+			context.font = "38px Sans Serif";
+			context.fillStyle = "#ffffff";
+			context.drawImage(objectImg, 0, 0);
+		}
+
+		var wrapText =  function(context, text) {
+		    var words = text.split(' ');
+		    var line = '';
+	        var x = 90
+	        var y = 68
+	        var maxWidth = 600
+	        var lineHeight = 40
+
+		    for(var n = 0; n < words.length; n++) {
+		      var testLine = line + words[n] + ' ';
+		      var metrics = context.measureText(testLine);
+		      var testWidth = metrics.width;
+		      if (testWidth > maxWidth && n > 0) {
+		        context.fillText(line, x, y);
+		        line = words[n] + ' ';
+		        y += lineHeight;
+		        if (y >= 188){
+	            	maxWidth = 320
+	            }
+		      }
+		      else {
+		        line = testLine;
+		      }
+		    }
+		    context.fillText(line, x, y);
+
+		    //Change format for signature
+		    context.shadowColor = "#808080"
+	        context.shadowOffsetX = 2;
+	        context.shadowOffsetX = 2;
+	        context.shadowBlur = 10;
+
+		    var sigPosition = y + (2 * lineHeight)
+	        context.fillText("Donald Trump", x, sigPosition)
+		
+			//Reset styling for next render
+			 context.shadowColor = "#000000"
+
+		}
+
+		var can = this.refs.canvas;
+		var context = can.getContext('2d');
+		var textInput = this.props.textInput;
+		var text = "People ask me what I'm going to do about " + textInput +". And I tell them I'm gonna win. Right now Obama is losing on " + textInput +". That's all he does is lose. Because he's a loser."
+
+		    context.shadowColor = "#000000"
+	        context.shadowOffsetX = 2;
+	        context.shadowOffsetX = 2;
+	        context.shadowBlur = 10;
+
+		var quotation = new Image();
+    	quotation.src = "<%= image_path('quotationmark.png')%>"
+		var objectImg = new Image();
+		var imgPath = "<%= image_path('Trump3.jpg') %>";
+		objectImg.src = imgPath
+		console.log('drawing ' + imgPath)
+
+		objectImg.onload = function(){
+			draw();
+			wrapText(context, text);
+			context.drawImage(quotation, 19, 15)
+
+		}
+
+		quotation.onload = function(){
+			console.log('draw quotation')
+			context.drawImage(quotation, 19, 15)
+
+		}
+	},
+
+	componentDidUpdate: function(){
+		this._draw()
+	},
+
+	componentDidMount: function(){
+		this._draw()
+	},
+
+  	render: function() {
+    return (
+    	<div>
+		<canvas ref='canvas' width={867} height={600}/>
+		Eyyyyy
+		</div>
+    );
+  }
+});

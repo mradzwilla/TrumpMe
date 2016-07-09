@@ -2,7 +2,8 @@ var ImageSelector = React.createClass({
 
 	getInitialState: function(){
 		return{
-			imgState:  "<%= image_path('Trump1.jpg') %>"
+			imgState:  "<%= image_path('Trump1.jpg') %>",
+			templateRef: 1
 		}
 	},
 
@@ -14,8 +15,8 @@ var ImageSelector = React.createClass({
 		var wrapText =  function(context, text) {
 		    var words = text.split(' ');
 		    var line = '';
-		    var x = 40
-		    var y = 148
+		    var x = 0
+		    var y = 68
 		    var maxWidth = 760
 		    var lineHeight = 40
 
@@ -34,8 +35,6 @@ var ImageSelector = React.createClass({
 		    }
 		    context.fillText(line, x, y);
 			}	
-	 	// var can = this.refs.canvas;
-	  //   var ctx = can.getContext('2d');
 
 		var objectImg = new Image();
 		var imgPath = this.state.imgState;
@@ -48,51 +47,27 @@ var ImageSelector = React.createClass({
 		}
 	},
 
-	// wrapText: function(context, text) {
- //    var words = text.split(' ');
- //    var line = '';
- //    var x = 40
- //    var y = 148
- //    var maxWidth = 760
- //    var lineHeight = 40
-
- //    for(var n = 0; n < words.length; n++) {
- //      var testLine = line + words[n] + ' ';
- //      var metrics = context.measureText(testLine);
- //      var testWidth = metrics.width;
- //      if (testWidth > maxWidth && n > 0) {
- //        context.fillText(line, x, y);
- //        line = words[n] + ' ';
- //        y += lineHeight;
- //      }
- //      else {
- //        line = testLine;
- //      }
- //    }
- //    context.fillText(line, x, y);
-	// },	
-
 	componentDidUpdate: function(){
 
-	var can = this.refs.canvas;
-	var context = can.getContext('2d');
-	var text = this.props.textInput
+	// var can = this.refs.canvas;
+	// var context = can.getContext('2d');
+	// var text = this.props.textInput
 
-	this._draw(context, text);
+	// this._draw(context, text);
 	// this.wrapText(context, text)
 
 	},
 	componentDidMount: function(){
 
-	var can = this.refs.canvas;
-	var context = can.getContext('2d');
-
-	this._draw(context);	
-	logStuff();
+	// var can = this.refs.canvas;
+	// var context = can.getContext('2d');
+	console.log(this.state.templateRef)
+	// this._draw(context);	
+	// logStuff();
 	},
 
-	_changePicState: function(imageLink){
-		this.setState({imgState: imageLink})
+	_changePicState: function(imageLink, id){
+		this.setState({imgState: imageLink, templateRef: id})
 	},
 
 	_getThumbnails: function(){
@@ -104,7 +79,7 @@ var ImageSelector = React.createClass({
 
 		return thumbnailList.map((e) => {
 			return (
-				<ImageThumbnail key={e.id} imageLink={e.imageLink} onClick={this._changePicState}/>
+				<ImageThumbnail key={e.id} imageLink={e.imageLink} onClick={this._changePicState} id={e.id}/>
 				)
 		});
 	},
@@ -112,21 +87,35 @@ var ImageSelector = React.createClass({
 	render: function() {
 	const thumbnails = this._getThumbnails()
 
-	return (
-		<div>
-		{thumbnails}
-		<canvas ref='canvas' width={867} height={600}/>
-		</div>
-
-	)
-	}
+	if (this.state.templateRef == 1){
+		return (
+			<div>
+			{thumbnails}
+			<QuoteTemplate1 textInput={this.props.textInput} />
+			</div>
+			)
+	} else if (this.state.templateRef == 2){
+		return (
+			<div>
+			{thumbnails}
+			<QuoteTemplate2 textInput={this.props.textInput} />
+			</div>
+		)
+	} else if (this.state.templateRef == 3) {
+		return (
+			<div>
+			{thumbnails}
+			<QuoteTemplate3 textInput={this.props.textInput} />
+			</div>
+		)	}
+}
 
 });
 
 var ImageThumbnail = React.createClass({
 
 	_runPropFunc: function(){
-		this.props.onClick(this.props.imageLink)
+		this.props.onClick(this.props.imageLink, this.props.id)
 	},
 
 	render: function(){

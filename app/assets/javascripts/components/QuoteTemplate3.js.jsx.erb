@@ -1,0 +1,78 @@
+var QuoteTemplate3 = React.createClass({
+	_draw: function(){
+
+		var draw = function(){
+
+			context.drawImage(objectImg, 0, 0);
+		}
+
+		var wrapText =  function(context, text) {
+		    var words = text.split(' ');
+		    var line = '';
+	        var x = 50
+	        var y = 154
+	        var maxWidth = 760
+	        var lineHeight = 36
+
+		    for(var n = 0; n < words.length; n++) {
+		      var testLine = line + words[n] + ' ';
+		      var metrics = context.measureText(testLine);
+		      var testWidth = metrics.width;
+		      if (testWidth > maxWidth && n > 0) {
+		        context.fillText(line, x, y);
+		        line = words[n] + ' ';
+		        y += lineHeight;
+
+		      }
+		      else {
+		        line = testLine;
+		      }
+		    }
+		    context.fillText(line, x, y);
+
+		    //Change format for signature
+		    // context.shadowColor = "#808080"
+	     //    context.shadowOffsetX = 2;
+	     //    context.shadowOffsetX = 2;
+	     //    context.shadowBlur = 10;
+
+
+		}
+
+		var can = this.refs.canvas;
+		var context = can.getContext('2d');
+		var textInput = this.props.textInput;
+		var text = "Figures Crooked Hilary deleted all of her emails about " + textInput +"."
+		
+		context.font = '28px Helvetica';
+		context.fillStyle = "#29f33";
+		// context.fillStyle ='#66757f';
+
+		var objectImg = new Image();
+		var imgPath = "<%= image_path('Trump7.jpg') %>";
+		objectImg.src = imgPath
+		console.log('drawing ' + imgPath)
+
+		objectImg.onload = function(){
+			draw();
+			wrapText(context, text);
+
+		}
+	},
+
+	componentDidUpdate: function(){
+		this._draw()
+	},
+
+	componentDidMount: function(){
+		this._draw()
+	},
+
+  	render: function() {
+    return (
+    	<div>
+		<canvas ref='canvas' width={867} height={600}/>
+		</div>
+    );
+  }
+});
