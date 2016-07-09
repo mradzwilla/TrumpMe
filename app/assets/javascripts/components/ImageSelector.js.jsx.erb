@@ -6,15 +6,33 @@ var ImageSelector = React.createClass({
 		}
 	},
 
-	componentDidUpdate: function(){
-		console.log("Image selector state " + this.state.imgState)
-		this.render
+	_draw: function(){
+		var draw = function(){
+			ctx.drawImage(objectImg, 100, 100);
+		}
+	 	var can = this.refs.canvas;
+	    var ctx = can.getContext('2d');
+
+		var objectImg = new Image();
+		var imgPath = this.state.imgState;
+		objectImg.src = imgPath
+		console.log('drawing ' + imgPath)
+
+		objectImg.onload = function(){
+			draw();
+			console.log('draw shti')
+		}
 	},
 
-	_changePicState: function(thumbnail){
-		var newImage = thumbnail.props.imageLink
-		console.log('newImage '+newImage)
-		setTimeout(this.setState({imgState: newImage}, console.log("setstate callback "+this.state.imgState)))
+	componentDidUpdate: function(){
+		this._draw()
+	},
+	componentDidMount: function(){
+		this._draw()
+	},
+
+	_changePicState: function(imageLink){
+		this.setState({imgState: imageLink})
 	},
 
 	_getThumbnails: function(){
@@ -26,7 +44,7 @@ var ImageSelector = React.createClass({
 
 		return thumbnailList.map((e) => {
 			return (
-				<ImageThumbnail key={e.id} imageLink={e.imageLink} propFunc={this._changePicState}/>
+				<ImageThumbnail key={e.id} imageLink={e.imageLink} onClick={this._changePicState}/>
 				)
 		});
 	},
@@ -37,7 +55,7 @@ var ImageSelector = React.createClass({
 	return (
 		<div>
 		{thumbnails}
-		<MyCanvasComponent imageLink={this.state.imgState}/>
+		<canvas ref='canvas' width={867} height={600}/>
 		</div>
 
 	)
@@ -47,12 +65,8 @@ var ImageSelector = React.createClass({
 
 var ImageThumbnail = React.createClass({
 
-	// getInitialState: function(){
-	// 	isSelected: false
-	// },
-
 	_runPropFunc: function(){
-		this.props.propFunc(this)
+		this.props.onClick(this.props.imageLink)
 	},
 
 	render: function(){
