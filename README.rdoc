@@ -1,28 +1,6 @@
-== README
+== Make README's great again
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a React on Rails app that accurately represents the response of the 55th President to any issue.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Quick summary of how it works:
+The app takes user input which is stored in a React state. Clicking the thumbnail tabs loads a corresponding component which is populated with the text. Each template draws to an invisible canvas which is copied to an image tag.
