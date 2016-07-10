@@ -12,7 +12,7 @@ var QuoteTemplate3 = React.createClass({
 	        var x = 50
 	        var y = 154
 	        var maxWidth = 760
-	        var lineHeight = 36
+	        var lineHeight = 34
 
 		    for(var n = 0; n < words.length; n++) {
 		      var testLine = line + words[n] + ' ';
@@ -37,7 +37,8 @@ var QuoteTemplate3 = React.createClass({
 		var textInput = this.props.textInput;
 		var text = "Figures Crooked Hilary deleted all of her emails about " + textInput +"."
 		
-		context.font = '28px Helvetica';
+		// context.font = '28px Helvetica';
+		context.font = '28px Helvetica Neue';
 		context.fillStyle = "#29f33";
 
 		var objectImg = new Image();
@@ -61,7 +62,7 @@ var QuoteTemplate3 = React.createClass({
 
   	render: function() {
     return (
-    	<div className="canvas-container" id="lol">
+    	<div className="canvas-container">
 	    	<div>
 			<canvas ref='canvas' width={867} height={505}/>
 			</div>

@@ -10,8 +10,7 @@ var TextForm = React.createClass({
 	render: function(){
 		return (
 		<div>		
-		<input type="text" value={this.state.value} onChange={this.handleChange}/>
-		<ImageSelector textInput={this.state.textState}/>
+		<ImageSelector textInput={this.state.textState} formFunc={this.handleChange}/>
 		</div>
 		)
 	}

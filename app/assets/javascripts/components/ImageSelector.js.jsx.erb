@@ -27,6 +27,10 @@ var ImageSelector = React.createClass({
 		});
 	},
 
+	_runFormFunc: function(event){
+		this.props.formFunc(event)
+	},
+
 	render: function() {
 	const thumbnails = this._getThumbnails()
 
@@ -34,6 +38,10 @@ var ImageSelector = React.createClass({
 		return (
 			<div>
 				<div className="thumbnail-row">
+					<div className="input-container">
+						<div><img id="logo" src="<%= image_path('trumplogo.png')%>"/></div>
+						<input type="text" placeholder="Enter a policy issue" value={this.state.value} onChange={this._runFormFunc}/>
+					</div>
 					<div className="thumbnail-list">
 					{thumbnails}
 					</div>
@@ -45,6 +53,10 @@ var ImageSelector = React.createClass({
 		return (
 			<div>
 				<div className="thumbnail-row">
+					<div className="input-container">
+						<div><img id="logo" src="<%= image_path('trumplogo.png')%>"/></div>
+						<input type="text" placeholder="Enter a policy issue" value={this.state.value} onChange={this._runFormFunc}/>
+					</div>					
 					<div className="thumbnail-list">
 					{thumbnails}
 					</div>
@@ -56,7 +68,11 @@ var ImageSelector = React.createClass({
 		return (
 			<div>
 			<div className="thumbnail-row">
-				<div className="thumbnail-list">
+					<div className="input-container">
+						<div><img id="logo" src="<%= image_path('trumplogo.png')%>"/></div>
+						<input type="text" placeholder="Enter a policy issue" value={this.state.value} onChange={this._runFormFunc}/>
+					</div>				
+					<div className="thumbnail-list">
 				{thumbnails}
 				</div>
 			</div>
@@ -66,7 +82,11 @@ var ImageSelector = React.createClass({
 			return (
 			<div>
 			<div className="thumbnail-row">
-				<div className="thumbnail-list">
+					<div className="input-container">
+						<div><img id="logo" src="<%= image_path('trumplogo.png')%>"/></div>
+						<input type="text" placeholder="Enter a policy issue" value={this.state.value} onChange={this._runFormFunc}/>
+					</div>				
+					<div className="thumbnail-list">
 				{thumbnails}
 				</div>
 			</div>

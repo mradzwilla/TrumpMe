@@ -14,7 +14,7 @@ var QuoteTemplate1 = React.createClass({
 	        var x = 90
 	        var y = 68
 	        var maxWidth = 600
-	        var lineHeight = 40
+	        var lineHeight = 36
 
 		    for(var n = 0; n < words.length; n++) {
 		      var testLine = line + words[n] + ' ';
@@ -88,7 +88,7 @@ var QuoteTemplate1 = React.createClass({
   	render: function() {
     return (
     	<div className="canvas-container">
-	    	<div>
+	    	<div height="600px">
 			<canvas ref='canvas' width={867} height={488}/>
 			</div>
 		</div>
