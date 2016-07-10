@@ -59,7 +59,7 @@ canvas {
 }
 
 .input-container{
-    padding-left: 55px;
+    padding-left: 50px;
     float: left;
 }
 
@@ -126,4 +126,40 @@ canvas {
 
 }
 
+@media all and (max-width: 800px){
 
+    .thumbnail {
+
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-top: 5px;
+
+        border-radius: 10px;
+    }
+
+    .thumbnail-row{
+        height: 175px;
+
+        img {
+            height: 78px;
+            width: auto;
+        }
+    }
+
+/*    #logo{
+        padding-left: 120px;
+    }*/
+    .input-container{
+        clear: both;
+        margin-left: 135px;
+    }
+    .thumbnail-list {
+    float: left;
+    }
+
+    .canvas-container {
+        padding-top: 200px;
+    }
+
+
+}
