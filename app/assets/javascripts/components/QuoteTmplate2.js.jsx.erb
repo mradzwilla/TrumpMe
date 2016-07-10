@@ -63,7 +63,6 @@ var QuoteTemplate2 = React.createClass({
 		var objectImg = new Image();
 		var imgPath = "<%= image_path('Trump3.jpg') %>";
 		objectImg.src = imgPath
-		console.log('drawing ' + imgPath)
 
 		objectImg.onload = function(){
 			draw();
@@ -73,7 +72,6 @@ var QuoteTemplate2 = React.createClass({
 		}
 
 		quotation.onload = function(){
-			console.log('draw quotation')
 			context.drawImage(quotation, 19, 15)
 
 		}
@@ -89,9 +87,10 @@ var QuoteTemplate2 = React.createClass({
 
   	render: function() {
     return (
-    	<div>
-		<canvas ref='canvas' width={867} height={600}/>
-		Eyyyyy
+    	<div className="canvas-container">
+	    	<div>
+			<canvas ref='canvas' width={867} height={505}/>
+			</div>
 		</div>
     );
   }

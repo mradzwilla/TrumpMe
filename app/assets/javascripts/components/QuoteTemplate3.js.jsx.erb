@@ -30,13 +30,6 @@ var QuoteTemplate3 = React.createClass({
 		    }
 		    context.fillText(line, x, y);
 
-		    //Change format for signature
-		    // context.shadowColor = "#808080"
-	     //    context.shadowOffsetX = 2;
-	     //    context.shadowOffsetX = 2;
-	     //    context.shadowBlur = 10;
-
-
 		}
 
 		var can = this.refs.canvas;
@@ -46,12 +39,10 @@ var QuoteTemplate3 = React.createClass({
 		
 		context.font = '28px Helvetica';
 		context.fillStyle = "#29f33";
-		// context.fillStyle ='#66757f';
 
 		var objectImg = new Image();
 		var imgPath = "<%= image_path('Trump7.jpg') %>";
 		objectImg.src = imgPath
-		console.log('drawing ' + imgPath)
 
 		objectImg.onload = function(){
 			draw();
@@ -70,8 +61,10 @@ var QuoteTemplate3 = React.createClass({
 
   	render: function() {
     return (
-    	<div>
-		<canvas ref='canvas' width={867} height={600}/>
+    	<div className="canvas-container" id="lol">
+	    	<div>
+			<canvas ref='canvas' width={867} height={505}/>
+			</div>
 		</div>
     );
   }

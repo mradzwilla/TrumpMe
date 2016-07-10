@@ -7,65 +7,6 @@ var ImageSelector = React.createClass({
 		}
 	},
 
-	_draw: function(context, text){
-		var draw = function(){
-			context.drawImage(objectImg, 100, 100);
-		}
-
-		var wrapText =  function(context, text) {
-		    var words = text.split(' ');
-		    var line = '';
-		    var x = 0
-		    var y = 68
-		    var maxWidth = 760
-		    var lineHeight = 40
-
-		    for(var n = 0; n < words.length; n++) {
-		      var testLine = line + words[n] + ' ';
-		      var metrics = context.measureText(testLine);
-		      var testWidth = metrics.width;
-		      if (testWidth > maxWidth && n > 0) {
-		        context.fillText(line, x, y);
-		        line = words[n] + ' ';
-		        y += lineHeight;
-		      }
-		      else {
-		        line = testLine;
-		      }
-		    }
-		    context.fillText(line, x, y);
-			}	
-
-		var objectImg = new Image();
-		var imgPath = this.state.imgState;
-		objectImg.src = imgPath
-		console.log('drawing ' + imgPath)
-
-		objectImg.onload = function(){
-			draw();
-			wrapText(context, text)
-		}
-	},
-
-	componentDidUpdate: function(){
-
-	// var can = this.refs.canvas;
-	// var context = can.getContext('2d');
-	// var text = this.props.textInput
-
-	// this._draw(context, text);
-	// this.wrapText(context, text)
-
-	},
-	componentDidMount: function(){
-
-	// var can = this.refs.canvas;
-	// var context = can.getContext('2d');
-	console.log(this.state.templateRef)
-	// this._draw(context);	
-	// logStuff();
-	},
-
 	_changePicState: function(imageLink, id){
 		this.setState({imgState: imageLink, templateRef: id})
 	},
@@ -75,6 +16,8 @@ var ImageSelector = React.createClass({
 		{id: 1, imageLink: "<%= image_path('Trump1.jpg') %>"},
 		{id: 2, imageLink: "<%= image_path('Trump3.jpg') %>"},
 		{id: 3, imageLink: "<%= image_path('Trump7.jpg') %>"},
+		{id: 4, imageLink: "<%= image_path('Trump2.jpg') %>"},
+
 		]
 
 		return thumbnailList.map((e) => {
@@ -90,24 +33,47 @@ var ImageSelector = React.createClass({
 	if (this.state.templateRef == 1){
 		return (
 			<div>
-			{thumbnails}
+				<div className="thumbnail-row">
+					<div className="thumbnail-list">
+					{thumbnails}
+					</div>
+				</div>
 			<QuoteTemplate1 textInput={this.props.textInput} />
 			</div>
 			)
 	} else if (this.state.templateRef == 2){
 		return (
 			<div>
-			{thumbnails}
+				<div className="thumbnail-row">
+					<div className="thumbnail-list">
+					{thumbnails}
+					</div>
+			</div>
 			<QuoteTemplate2 textInput={this.props.textInput} />
 			</div>
 		)
 	} else if (this.state.templateRef == 3) {
 		return (
 			<div>
-			{thumbnails}
+			<div className="thumbnail-row">
+				<div className="thumbnail-list">
+				{thumbnails}
+				</div>
+			</div>
 			<QuoteTemplate3 textInput={this.props.textInput} />
 			</div>
-		)	}
+		)} else if (this.state.templateRef == 4){
+			return (
+			<div>
+			<div className="thumbnail-row">
+				<div className="thumbnail-list">
+				{thumbnails}
+				</div>
+			</div>
+			<QuoteTemplate4 textInput={this.props.textInput} />
+			</div>
+			)
+		}
 }
 
 });

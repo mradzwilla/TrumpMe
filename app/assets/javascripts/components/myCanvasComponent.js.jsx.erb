@@ -1,91 +1,53 @@
-var MyCanvasComponent = React.createClass({
+// var MyCanvasComponent = React.createClass({
 
-	getInitialState: function(){
-		return {
-			currentImage: this.props.imageLink
-		}
-	},
-	componentDidUpdate: function(){
-		console.log("canvas state img " + this.state.currentImage)
-		this._draw()
-	},
+// 	getInitialState: function(){
+// 		return {
+// 			currentImage: this.props.imageLink
+// 		}
+// 	},
+// 	componentDidUpdate: function(){
+// 		console.log("canvas state img " + this.state.currentImage)
+// 		this._draw()
+// 	},
 
-	_draw: function(){
-		var draw = function(){
-			ctx.drawImage(objectImg, 100, 100);
-		}
-	 	var can = this.refs.canvas;
-	    var ctx = can.getContext('2d');
+// 	_draw: function(){
+// 		var draw = function(){
+// 			ctx.drawImage(objectImg, 100, 100);
+// 		}
+// 	 	var can = this.refs.canvas;
+// 	    var ctx = can.getContext('2d');
 
-		var objectImg = new Image();
-		var imgPath = this.state.currentImage;
-		objectImg.src = imgPath
-		console.log('drawing ' + imgPath)
+// 		var objectImg = new Image();
+// 		var imgPath = this.state.currentImage;
+// 		objectImg.src = imgPath
+// 		console.log('drawing ' + imgPath)
 
-		objectImg.onload = function(){
-			draw();
-			console.log('draw shti')
-		}
-	},
+// 		objectImg.onload = function(){
+// 			draw();
+// 			console.log('draw shti')
+// 		}
+// 	},
 
-	_log: function(){
-		console.log('lolol' + this.state.currentImage)
-	},
-	componentWillReceiveProps: function(){
-		this.setState({currentImage: this.props.imageLink});
-	},
+// 	_log: function(){
+// 		console.log('lolol' + this.state.currentImage)
+// 	},
+// 	componentWillReceiveProps: function(){
+// 		this.setState({currentImage: this.props.imageLink});
+// 	},
 
-	componentDidMount: function(){
-		console.log('canvas rendered')
-		this._draw()
+// 	componentDidMount: function(){
+// 		console.log('canvas rendered')
+// 		this._draw()
 
-	},
+// 	},
 
-	// shouldComponentUpdate: function(){
-	// 		console.log('canvasupdate')
-	// 	var draw = function(){
-	// 		ctx.drawImage(objectImg, 100, 100);
-	// 		}
 
-	// 	console.log(this.state)
-	//  	var can = this.refs.canvas;
-	//     var ctx = can.getContext('2d');
+//     render: function() {
+//         return (
+//         	<div>
+//             <canvas ref='canvas' width={867} height={600}/>
+//             </div>
+//         );
+//     }
+// })
 
-	// 	var objectImg = new Image();
-	// 	var imgPath = this.state.imgState;
-	// 	objectImg.src = imgPath
-		
-	// 	objectImg.onload = function(){
-	// 		draw();
-	// 	}
-	// },
-	// componentWillUpdate: function(){
-	
-	// var draw = function(){
-	// 	ctx.drawImage(objectImg, 100, 100);
-	// }
-
- // 	var can = this.refs.canvas;
- //    var ctx = can.getContext('2d');
-
-	// var objectImg = new Image();
-	// var imgPath = this.props.imgPath;
-	// console.log(imgPath)
-	// objectImg.src = imgPath
-	
-	// objectImg.onload = function(){
-	// 	draw();
-	// }
-
-	// },
-
-    render: function() {
-        return (
-        	<div>
-            <canvas ref='canvas' width={867} height={600}/>
-            </div>
-        );
-    }
-})
-
-// ReactDOM.render(<Image/>, document.getElementById('container'));

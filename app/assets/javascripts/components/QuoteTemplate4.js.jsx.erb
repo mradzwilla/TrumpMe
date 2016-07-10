@@ -1,9 +1,9 @@
-var QuoteTemplate1 = React.createClass({
+var QuoteTemplate4 = React.createClass({
 	_draw: function(){
 
 		var draw = function(){
 
-			context.font = "38px Sans Serif";
+			context.font = "33px Sans Serif";
 			context.fillStyle = "#ffffff";
 			context.drawImage(objectImg, 0, 0);
 		}
@@ -12,9 +12,9 @@ var QuoteTemplate1 = React.createClass({
 		    var words = text.split(' ');
 		    var line = '';
 	        var x = 90
-	        var y = 68
-	        var maxWidth = 600
-	        var lineHeight = 40
+	        var y = 208
+	        var maxWidth = 520
+	        var lineHeight = 35
 
 		    for(var n = 0; n < words.length; n++) {
 		      var testLine = line + words[n] + ' ';
@@ -24,55 +24,39 @@ var QuoteTemplate1 = React.createClass({
 		        context.fillText(line, x, y);
 		        line = words[n] + ' ';
 		        y += lineHeight;
-		        if (y >= 148){
-	            	maxWidth = 320
-	            }
 		      }
 		      else {
 		        line = testLine;
 		      }
 		    }
 		    context.fillText(line, x, y);
-
-		    //Change format for signature
-		    context.shadowColor = "#808080"
-	        context.shadowOffsetX = 2;
-	        context.shadowOffsetX = 2;
-	        context.shadowBlur = 10;
-
-		    var sigPosition = y + (2 * lineHeight)
-	        context.fillText("Donald Trump", x, sigPosition)
-		
-			//Reset styling for next render
-			 context.shadowColor = "#000000"
-
 		}
 
 		var can = this.refs.canvas;
 		var context = can.getContext('2d');
 		var textInput = this.props.textInput;
-		var text = "A lot of people ask me about " + textInput +". And let me tell you folks. It's bad. It's so bad. Nobody can believe how bad it is."
+		var text = "Donald J. Trump is calling for a total and complete shutdown of "+ textInput + " until our country's representatives can figure out what is going on."
 
 		    context.shadowColor = "#000000"
 	        context.shadowOffsetX = 2;
-	        context.shadowOffsetX = 2;
-	        context.shadowBlur = 10;
+	        context.shadowOffsetY = 2;
+	        context.shadowBlur = 2;
 
 		var quotation = new Image();
     	quotation.src = "<%= image_path('quotationmark.png')%>"
 		var objectImg = new Image();
-		var imgPath = "<%= image_path('Trump1.jpg') %>";
+		var imgPath = "<%= image_path('Trump2.jpg') %>";
 		objectImg.src = imgPath
 
 		objectImg.onload = function(){
 			draw();
 			wrapText(context, text);
-			context.drawImage(quotation, 19, 15)
+			context.drawImage(quotation, 10, 160)
 
 		}
 
 		quotation.onload = function(){
-			context.drawImage(quotation, 19, 15)
+			context.drawImage(quotation, 10, 150)
 
 		}
 	},
@@ -89,9 +73,10 @@ var QuoteTemplate1 = React.createClass({
     return (
     	<div className="canvas-container">
 	    	<div>
-			<canvas ref='canvas' width={867} height={488}/>
+			<canvas ref='canvas' width={620} height={350}/>
 			</div>
 		</div>
     );
   }
 });
+//"Donald J. Trump is calling for a total and complete shutdown of Muslims entering the United States until our country's representatives can figure out what is going on

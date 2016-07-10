@@ -9,13 +9,8 @@
 }*/
 
 body {
-/*	background-color: green;
-*/}
-
-/*#mainCanvas {
-	margin: 0 auto;
-	border: solid 1px black;
-}*/
+	background-color: #2b325f;
+}
 
 canvas {
     padding-left: 0;
@@ -24,15 +19,80 @@ canvas {
     margin-right: auto;
     display: block;
     width: 867px;
-    border: 1px solid black;
+
+    border-radius: 2px;
+
     img{
-    	z-index: -2;
+    	z-index: -1;
     }
+
+}
+
+.canvas-container {
+    left: 0;
+    right: 0;
+    bottom: 0;
+/*    box-sizing: border-box;
+*/   z-index: -2;
+    position: absolute;
+    padding-top: 80px;
+    padding-bottom: 15px;
+
+    background-color: #110e19; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(180deg, #110e19 , #2b325f); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(180deg, #110e19 , #2b325f); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(180deg, #110e19 , #2b325f); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(-180deg, #110e19 , #2b325f); /* Standard syntax */
 }
 
 .thumbnail {
+    width: 140px;
+    height: 80px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 5px;
 
-        width:140px; /* you can use % */
-        height: auto;
+    border-radius: 10px;
 
 }
+
+.thumbnail:hover{
+    cursor: pointer;
+}
+
+.thumbnail-row {
+
+    height: 90px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    margin-bottom: 15px;
+
+/*    box-sizing: border-box;
+*/
+    background: #9c0207; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, #9c0207 , #820408); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #9c0207, #820408); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #9c0207, #820408); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #9c0207 , #820408); /* Standard syntax */
+}
+.thumbnail-list {
+    width: 576px;
+    height: 80px;
+    padding-bottom: 15px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#template2 {
+    margin-top: 400px;
+    padding-top: 400px;
+}
+/*.top-bar {
+    background-color: #2b325f;
+}*/
+
