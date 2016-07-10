@@ -1,6 +1,16 @@
 var QuoteTemplate1 = React.createClass({
-	_draw: function(){
 
+	_copyToImage: function(){
+		var can = this.refs.canvas;
+		var dataURL = can.toDataURL();
+
+		var canvasImg = this.refs.canvasImage
+		canvasImg.src = dataURL
+	},
+
+	_draw: function(callback){
+
+		console.log('start drawing')
 		var draw = function(){
 
 			context.font = "38px Sans Serif";
@@ -45,7 +55,6 @@ var QuoteTemplate1 = React.createClass({
 		
 			//Reset styling for next render
 			 context.shadowColor = "#000000"
-
 		}
 
 		var can = this.refs.canvas;
@@ -53,10 +62,10 @@ var QuoteTemplate1 = React.createClass({
 		var textInput = this.props.textInput;
 		var text = "A lot of people ask me about " + textInput +". And let me tell you folks. It's bad. It's so bad. Nobody can believe how bad it is."
 
-		    context.shadowColor = "#000000"
-	        context.shadowOffsetX = 2;
-	        context.shadowOffsetX = 2;
-	        context.shadowBlur = 10;
+	    context.shadowColor = "#000000"
+        context.shadowOffsetX = 2;
+        context.shadowOffsetX = 2;
+        context.shadowBlur = 10;
 
 		var quotation = new Image();
     	quotation.src = "<%= image_path('quotationmark.png')%>"
@@ -69,27 +78,43 @@ var QuoteTemplate1 = React.createClass({
 			wrapText(context, text);
 			context.drawImage(quotation, 19, 15)
 
+			console.log('finish drawing')
+			callback()
+
 		}
 
+		//This might not be necessary, but ensures quotation is drawn if loaded after image
 		quotation.onload = function(){
 			context.drawImage(quotation, 19, 15)
-
 		}
+
+		// this.refs.canvas.onload = function(){
+
+		// 	console.log('canvas load and get data url')
+		// 	var can = this.refs.canvas;
+		// 	var dataURL = can.toDataURL();
+
+		// 	var canvasImg = this.refs.canvasImage
+		// 	canvasImg.src = dataURL
+		// 	}
 	},
 
 	componentDidUpdate: function(){
-		this._draw()
+		this._draw(this._copyToImage)
+
 	},
 
 	componentDidMount: function(){
-		this._draw()
+		this._draw(this._copyToImage)
+
 	},
 
   	render: function() {
     return (
     	<div className="canvas-container">
 	    	<div height="600px">
-			<canvas ref='canvas' width={867} height={488}/>
+			<canvas ref='canvas' width={867} height={488} />
+			<img ref='canvasImage' id="mirror" style={{"height":"488px", "width":"867px"}} className="canvasImg" />
 			</div>
 		</div>
     );
